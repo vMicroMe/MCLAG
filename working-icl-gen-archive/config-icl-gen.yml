@@ -1,0 +1,40 @@
+
+
+
+---
+- hosts: mlag
+  connection: local
+  gather_facts: no
+  
+  tasks:
+    - name: create directories for storing of configs
+      file:
+        path: config/{{inventory_hostname}}
+        state: directory
+    - name: create temprorary directory
+      file:
+        path: temp-config/{{inventory_hostname}}
+        state: directory
+
+    - name: test
+      template: > 
+        src=templates/mlag.j2
+        dest=temp-config/{{inventory_hostname}}/{{inventory_hostname}}.mlag.part
+
+    - name: test1
+      template: >
+        src=templates/bundle.j2
+        dest=temp-config/{{inventory_hostname}}/{{inventory_hostname}}.bundle.part
+ 
+    - name: test3
+      template: >
+        src=templates/vlan.j2
+        dest=temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
+  
+    - name: assembling the fragments
+      assemble: 
+        src: temp-config/{{inventory_hostname}}
+        dest:  config/{{inventory_hostname}}/{{inventory_hostname}}.conf
+       
+
+...

@@ -1,0 +1,34 @@
+
+mclag_id: "{{ id - ((id//2)*2) }}"
+
+mclag:
+  nbr_ae: 5
+  mac: 00:11:22:33:44:02
+  rmac: 00:11:22:33:44:01
+  enhanced_convergence: "Yes"
+  l3_routing: "Yes"
+  mode: active-active
+  iccp_interface: ae1
+  icl_interface: ae0
+  chassis_id: "{{ mclag_id }}"
+  status_control: "{{ 'active' if mclag_id == '0' else 'standby' }}"
+  iccp:
+    links:
+      - "xe-0/0/0"
+      - "xe-0/0/1"
+    local_ip: "{{ '1.1.1.2' if mclag_id == '0' else '1.1.1.1' }}"
+    peer_ip: "{{ '1.1.1.1' if mclag_id == '0' else '1.1.1.2' }}"
+  icl:
+    links:
+      - "xe-0/0/2"
+      - "xe-0/0/3"
+    description: ICL interface
+  mcae:
+    to_access01:
+      key: 2
+      links:
+        - "xe-0/0/1"
+    to_access02:
+      key: 3
+      links:
+        - "xe-0/0/2"
