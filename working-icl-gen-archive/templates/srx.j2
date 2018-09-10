@@ -1,0 +1,25 @@
+
+
+interfaces {
+{% for name, intf in topo.reth.items() %}
+{% for linkname in intf.links %}
+ {{linkname}} {
+    gigether-options {
+        redundant-parent reth{{intf.key}};
+    }
+}
+{% endfor %}
+
+reth{{intf.key}} {
+  vlan-tagging;
+    {% for uname, unit in intf.units.items() %}
+  unit {{unit.u_id}} {
+        vlan-id {{unit.u_id}};
+        family inet {
+            address {{unit.u_ip}};
+        }
+    }
+   {% endfor %}                                   
+}
+{% endfor %}
+}
