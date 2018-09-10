@@ -2,7 +2,7 @@
 
 
 ---
-- hosts: leaf
+- hosts: srx
   connection: local
   gather_facts: no
   
@@ -27,22 +27,28 @@
 #        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.bundle.part
 
 
-    - name: creating uplinks and downlinks
-      template:
-        src: templates/leaf-intf.j2
-        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.intf.part
-      when:  type  == 'Jswitch'
+#    - name: creating uplinks and downlinks
+#      template:
+#        src: templates/leaf-intf.j2
+#        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.intf.part
+#      when:  type  == 'Jswitch'
  
-    - name: creating vlans related config
-      template: 
-        src: templates/vlan.j2
-        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
-      when: type == 'Jswitch'
+#    - name: creating vlans related config
+#      template: 
+#        src: templates/vlan.j2
+#        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
+#      when: type == 'Jswitch'
   
-    - name: assembling the fragments-changes
-      assemble: 
-        src: temp-config/{{inventory_hostname}}
-        dest:  config/{{inventory_hostname}}/{{inventory_hostname}}.conf
-       
+#    - name: assembling the fragments-changes
+#      assemble: 
+#        src: temp-config/{{inventory_hostname}}
+#        dest:  config/{{inventory_hostname}}/{{inventory_hostname}}.conf
+ 
+    - name: SRX reth config
+      template:
+        src: templates/srx.j2
+        dest: config/{{inventory_hostname}}/{{inventory_hostname}}.conf
+
+      
 
 ...

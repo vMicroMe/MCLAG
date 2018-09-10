@@ -7,6 +7,9 @@ leaf-01  id=3  type=Jswitch
 leaf-02  id=4  type=Jswitch
 leaf-03  id=5  type=JFW
 
+[srx]
+srx-01   id=6  
+
 
 
 
