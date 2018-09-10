@@ -31,7 +31,7 @@
         src: templates/vlan.j2
         dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
   
-    - name: assembling the fragments
+    - name: assembling the fragments-changes
       assemble: 
         src: temp-config/{{inventory_hostname}}
         dest:  config/{{inventory_hostname}}/{{inventory_hostname}}.conf
