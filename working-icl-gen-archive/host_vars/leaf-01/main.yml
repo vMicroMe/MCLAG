@@ -1,0 +1,29 @@
+topo:
+  nbr_ae: 10
+  uplink:
+    to_mallanox:
+      key: 2
+      links:
+        - "xe-0/0/3"
+        - "xe-1/0/3"
+      v_mem:
+        - "V107"
+        - "V207"
+    to_QFX-10K:
+      key: 3
+      links:
+        - "xe-1/0/4"
+        - "xe-0/0/4"
+      v_mem:
+        - "V107"
+        - "V207"
+  dlink:
+    to_server2:
+      key: 4
+      links:
+        - "xe-0/0/5"
+        - "xe-0/0/6"
+      v_mem:
+        - "all"
+       
+
