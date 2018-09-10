@@ -1,11 +1,6 @@
 interfaces {
 
-            xe-0/0/0{
-        ether-options {
-            802.3ad ae1;
-        }
-    }
-        xe-0/0/1{
+            xe-0/0/2{
         ether-options {
             802.3ad ae1;
         }
@@ -25,44 +20,74 @@ interfaces {
              family ethernet-switching {
                interface-mode trunk;
              vlan {
-              members [  V101  V100  ];
+              members [  Produntrust-to-vqfx  Agg-to-vQFX  ];
             }     
           }
       }
     }
-            xe-0/0/2{
+            xe-0/0/0{
         ether-options {
             802.3ad ae0;
         }
     }
-        xe-0/0/3{
+        xe-0/0/1{
         ether-options {
             802.3ad ae0;
         }
     }
     
-            xe-0/0/2 {
+            xe-0/0/5 {
+        ether-options {
+            802.3ad ae4;
+        }
+    }
+                xe-0/0/4 {
         ether-options {
             802.3ad ae3;
         }
     }
-                xe-0/0/0 {
-        ether-options {
-            802.3ad ae2;
-        }
-    }
-        xe-0/0/2 {
+                xe-0/0/3 {
         ether-options {
             802.3ad ae2;
         }
     }
            
 
-       ae3 {
+       ae4 {
         aggregated-ether-options {
             lacp {
                 active;
-                system-id 00:11:22:33:44:01;
+                system-id 02:05:86:71:d2:00;
+                admin-key 4;
+            }
+            mc-ae {
+                mc-ae-id 4;
+                chassis-id 1;
+                mode active-active;
+                status-control standby;
+                init-delay-time 240;
+                enhanced-convergence;
+                events {
+                    iccp-peer-down {
+                        prefer-status-control-active;
+                    }
+                }
+            }
+        }
+        unit 0 {
+            family ethernet-switching {
+                interface-mode trunk;
+                vlan {
+                    members all;
+                }
+            }
+        }
+    }
+        ae3 {
+        aggregated-ether-options {
+            lacp {
+                active;
+                system-id 02:05:86:71:d2:00;
                 admin-key 3;
             }
             mc-ae {
@@ -92,7 +117,7 @@ interfaces {
         aggregated-ether-options {
             lacp {
                 active;
-                system-id 00:11:22:33:44:01;
+                system-id 02:05:86:71:d2:00;
                 admin-key 2;
             }
             mc-ae {
@@ -119,30 +144,20 @@ interfaces {
         }
     }
      
-   irb {
-        unit 101 {
+          irb {
+    unit 701 {
          enhanced-convergence;
            family inet {
-        address 10.0.101.11/24 {
-               arp 10.0.101.12 l2-interface ae1.0 mac 00:11:22:33:44:02;
-                 vrrp-group 101 {
-              virtual-address 10.0.101.1;
-
-         }
-       }
-     }
-   }
-      unit 100 {
-         enhanced-convergence;
-           family inet {
-        address 10.0.100.11/24 {
-               arp 10.0.100.12 l2-interface ae1.0 mac 00:11:22:33:44:02;
-                 vrrp-group 100 {
-              virtual-address 10.0.100.1;
+        address 10.100.3.10/29 {
+               arp 10.100.3.11 l2-interface ae1.0 mac 02:05:86:71:71:100;
+                 vrrp-group 701 {
+              virtual-address 10.100.3.12;
 
          }
        }
      }
    }
    }
+      }
+  
 }

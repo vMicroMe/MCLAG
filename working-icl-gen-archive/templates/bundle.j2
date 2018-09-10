@@ -84,8 +84,9 @@ interfaces {
     }
     {% endfor %}
  
-   irb {
-    {% for name, vlan in vlans.iteritems()  %}
+   {% for name, vlan in vlans.iteritems()  %}
+   {% if vlan.ip is defined  %}
+    irb {
     unit {{ vlan.id}} {
     {% if mclag.enhanced_convergence == "Yes"  %}
      enhanced-convergence;
@@ -102,6 +103,8 @@ interfaces {
        }
      }
    }
-  {% endfor %}
+  {% endif %}
  }
+  {% endfor %}
+
 }

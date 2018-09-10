@@ -2,7 +2,7 @@
 
 
 ---
-- hosts: mlag
+- hosts: leaf
   connection: local
   gather_facts: no
   
@@ -16,20 +16,28 @@
         path: temp-config/{{inventory_hostname}}
         state: directory
 
-    - name: creating iccp related config
-      template:  
-        src: templates/mlag.j2
-        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.mlag.part
+#    - name: creating iccp related config
+#      template:  
+#        src: templates/mlag.j2
+#        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.mlag.part
 
-    - name: creating ae related config
-      template: 
-        src: templates/bundle.j2
-        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.bundle.part
+#    - name: creating ae related config
+#      template: 
+#        src: templates/bundle.j2
+#        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.bundle.part
+
+
+    - name: creating uplinks and downlinks
+      template:
+        src: templates/leaf-intf.j2
+        dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.intf.part
+      when:  type  == 'Jswitch'
  
     - name: creating vlans related config
       template: 
         src: templates/vlan.j2
         dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
+      when: type == 'Jswitch'
   
     - name: assembling the fragments-changes
       assemble: 

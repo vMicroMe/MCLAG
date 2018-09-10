@@ -1,12 +1,11 @@
 vlans {
-    V101  {
-        vlan-id 101;
-        l3-interface irb.101;
-    }
-    V100  {
-        vlan-id 100;
-        l3-interface irb.100;
-    }
+    Produntrust-to-vqfx  {
+        vlan-id 701;
+              l3-interface irb.701;
+          }
+    Agg-to-vQFX  {
+        vlan-id 703;
+          }
     default {
         vlan-id 1;
     }

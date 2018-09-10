@@ -1,6 +1,11 @@
 [mlag]
-spine-01  id=1
-spine-02  id=2
+spine-01  id=1 type=Jswitch
+spine-02  id=2 type=Jswitch
+
+[leaf]
+leaf-01  id=3  type=Jswitch
+leaf-02  id=4  type=Jswitch
+leaf-03  id=5  type=JFW
 
 
 

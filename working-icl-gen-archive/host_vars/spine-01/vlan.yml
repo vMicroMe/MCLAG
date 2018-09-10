@@ -1,15 +1,12 @@
 vlans:
   V100:
-    id: 100
-    name: V100
-    ip: 10.0.100.11
-    mask: 24
-    vip: 10.0.100.1
-    R_IP: 10.0.100.12
+    id: 703
+    name: Agg-to-vQFX
   V101:
-    id: 101
-    name: V101
-    ip: 10.0.101.11
-    mask: 24
-    vip: 10.0.101.1
-    R_IP: 10.0.101.12
+    id: 701
+    name: Produntrust-to-vqfx
+    ip: 10.100.3.10
+    mask: 29
+    vip:  10.100.3.12
+    R_IP: 10.100.3.11
+

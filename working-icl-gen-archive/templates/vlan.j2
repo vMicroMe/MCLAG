@@ -2,7 +2,9 @@ vlans {
 {% for vname, vlan in vlans.items() %}
     {{ vlan.name }}  {
         vlan-id {{ vlan.id }};
+      {% if vlan.ip is defined %}
         l3-interface irb.{{ vlan.id }};
+      {% endif %}
     }
 {% endfor %}
     default {
