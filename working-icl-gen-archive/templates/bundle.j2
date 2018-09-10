@@ -24,6 +24,9 @@ interfaces {
         unit 0 {
              family ethernet-switching {
                interface-mode trunk;
+             vlan {
+              members [ {% for name, vlan in vlans.items() %} {{vlan.name}} {% endfor %} ];
+            }     
           }
       }
     }
