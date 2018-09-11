@@ -1,4 +1,5 @@
 {# hurray #}
+#jinja2: trim_blocks:False
 
 interfaces {
 {% for name, intf in topo.reth.items() %}
@@ -23,3 +24,89 @@ reth{{intf.key}} {
 }
 {% endfor %}
 }
+
+
+security {
+
+address-book {
+
+     {% if addressbook.global is defined %}
+    global {
+
+     {% for name, address in addressbook.global.items() %}
+         address {{name}} {{address}};
+     {% endfor %}
+    }  
+    
+    {% endif %}
+}
+
+zones {
+{% for name, zone in zones.sec_zones.items() %}
+security-zone {{zone.name}} {
+    interfaces {
+      {% for name, intf in zone.interfaces.items() %}
+        {{name}} {
+              host-inbound-traffic { 
+                   system-services { 
+                   {% for sysserv in intf.system_services %}
+         {{sysserv+";"}} 
+                   {% endfor %}
+
+                    }
+                    protocols { {% for proto in intf.protocols %} 
+                          {{proto+";"}} {% endfor %}
+
+                    }           
+                }
+            }
+      {% endfor %}
+
+        }    
+     }
+ {% endfor %}
+}
+
+policies {
+    
+ {% if global is defined %}
+    global {
+ {% for name, policy in global.items() %}                          
+        policy {{policy.name }} {
+            match {
+                source-address {{policy.src}};
+                destination-address {{policy.dest}};
+                application {{ policy.app}};
+                from-zone {{policy.srcz}}
+                to-zone {{policy.destz}}
+            }
+            then {
+                {{policy.action }};
+            }
+         }
+ {% endfor %}
+     }
+ {% endif %}
+
+ {% if policies is defined %}
+   {% for name, policy in policies.items() %}
+    from-zone {{policy.srcz}} to-zone {{policy.destz}} {
+    {% for name, tup in policy.flow.items() %}
+     policy {{ tup.name}} {
+            match { 
+            source-address {{tup.src}};
+            destination-address {{tup.dest}};
+            application {{tup.app}};
+         }
+        then {
+          {{ tup.action }}
+         }
+       }
+      {% endfor %}
+    }
+   {% endfor %}
+  {% endif %}
+  }
+ } 
+
+
