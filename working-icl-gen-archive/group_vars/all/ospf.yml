@@ -1,0 +1,20 @@
+ospf:
+  spine-01:
+    xe-0/0/1:
+      area: 0
+      type: p2p
+      active: yes
+    xe-0/0/1:
+       area: 1
+       type: p2p
+       active: yes
+
+  srx-01:
+    xe-0/0/1:
+      area: 0 
+      type: p2p
+      active: yes
+
+
+   
+      

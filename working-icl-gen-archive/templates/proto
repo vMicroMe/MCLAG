@@ -1,0 +1,8 @@
+
+
+protocols {
+ {% if {{ansible_hostname}} in proto.ospf %}
+    ospf {
+ {% for name, intf in ospf.items() %}
+    {% for 
+    area 
