@@ -1,8 +1,0 @@
-vlans:
-  V100:
-    id: 703
-    name: Agg-to-vQFX
-  V101:
-    id: 701
-    name: Produntrust-to-vqfx
-
