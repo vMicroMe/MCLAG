@@ -1,0 +1,20 @@
+
+{% for name, node in ospf.items() %}
+{% if inventory_hostname ==  name %}
+protocols {
+   ospf {
+     {% for nm, ar in node.items() %}
+     area {{ar.nmbr}} { 
+       {% for intf in ar.intf %}
+       interface {{intf}}; 
+       {% endfor %}
+      }
+     {% endfor %}
+   }
+ }
+{% endif %}
+{% endfor %}
+
+
+
+

@@ -1,0 +1,24 @@
+
+{% for name, topo in topo.uplink.items() %}
+interfaces {
+    {% for links in topo.links %}
+    {{ links }} {
+        ether-options {
+            802.3ad ae{{topo.key}};
+        }
+    } 
+    {% endfor %}
+
+    ae{{topo.key}} {
+        unit 0 {                        
+            family ethernet-switching {
+                interface-mode trunk;
+                vlan {
+                    members [ {% for name, vlan in vlans.items()%} {{vlan.name}} {% endfor %} ];
+                }
+            }
+        }
+    }
+}
+{% endfor %}
+

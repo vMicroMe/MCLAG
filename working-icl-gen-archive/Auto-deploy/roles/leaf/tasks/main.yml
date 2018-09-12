@@ -1,0 +1,5 @@
+  - name: creating uplinks and downlinks
+    template:
+      src: templates/leaf-intf.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.intf.part
+      

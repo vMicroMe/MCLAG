@@ -1,0 +1,4 @@
+  - name: SRX reth config
+    template:
+      src: templates/srx.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.part.conf

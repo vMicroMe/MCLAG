@@ -1,0 +1,4 @@
+  - name: ospf Protocol config
+    template:
+      src: templates/proto.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.port.conf

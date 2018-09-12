@@ -1,0 +1,5 @@
+  - name: creating iccp related config
+    template:
+      src: templates/mlag.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.mlag.part
+

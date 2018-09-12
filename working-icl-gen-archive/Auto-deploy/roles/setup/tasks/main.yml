@@ -1,0 +1,12 @@
+---
+
+ - name: create directories for storing of configs
+   file:
+     path: config/{{inventory_hostname}}
+     state: directory
+
+ - name: create temprorary directory
+   file:
+     path: temp-config/{{inventory_hostname}}
+     state: directory
+...

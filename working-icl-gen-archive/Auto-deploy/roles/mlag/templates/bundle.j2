@@ -1,0 +1,106 @@
+interfaces {
+
+    {# this is for bundeling iccp link #}
+    {% for links in mclag.iccp.links %}
+    {{ links }}{
+        ether-options {
+            802.3ad {{ mclag.iccp_interface }};
+        }
+    }
+    {% endfor %}
+
+    {# this is for configuring iccp bundle with ip #}
+    {{ mclag.iccp_interface }}{
+        unit 0 {
+            family inet {
+                address {{ mclag.iccp.local_ip }}/30;
+            }
+        }
+    }
+
+    {# this of icl bundle link #}
+    {{ mclag.icl_interface }}{
+        description "{{ mclag.icl.description }}";
+        unit 0 {
+             family ethernet-switching {
+               interface-mode trunk;
+          }
+      }
+    }
+    {# this is for bundeling iccl link #}
+    {% for links in mclag.icl.links %}
+    {{ links }}{
+        ether-options {
+            802.3ad {{ mclag.icl_interface }};
+        }
+    }
+    {% endfor %}
+
+    {% for name, mclag in mclag.mcae.iteritems() %}
+    {% for links in mclag.links %}
+    {{ links }} {
+        ether-options {
+            802.3ad ae{{ mclag.key }};
+        }
+    }
+    {% endfor%}
+    {% endfor %}
+   {# Bundeling Aes using ansible#}
+
+
+   {% for name, mlag in mclag.mcae.iteritems()%}
+    ae{{ mlag.key }} {
+        aggregated-ether-options {
+            lacp {
+                active;
+                system-id {{ mclag.mac }};
+                admin-key {{ mlag.key }};
+            }
+            mc-ae {
+                mc-ae-id {{ mlag.key }};
+                chassis-id {{ mclag_id }};
+                mode {{ mclag.mode }};
+                status-control {{ mclag.status_control }};
+                init-delay-time 240;
+                enhanced-convergence;
+                events {
+                    iccp-peer-down {
+                        prefer-status-control-active;
+                    }
+                }
+            }
+        }
+        unit 0 {
+            family ethernet-switching {
+                interface-mode trunk;
+                vlan {
+                    members all;
+                }
+            }
+        }
+    }
+    {% endfor %}
+ 
+   irb {
+    {% for name, vlan in vlans.iteritems()  %}
+     {% if vlan.ip is defined %}
+     unit {{ vlan.id}} {
+     {% if mclag.enhanced_convergence == "Yes"  %}
+     enhanced-convergence;
+     {% endif %}
+      family inet {
+        address {{ vlan.ip }}/{{vlan.mask}} {
+       {% if mclag.l3_routing == "Yes" %}
+        arp {{ vlan.R_IP }} l2-interface {{ mclag.iccp_interface }}.0 mac {{ mclag.rmac }};
+        {% endif %}
+         vrrp-group {{vlan.vrrp_id }} {
+              virtual-address {{ vlan.vip }};
+
+         }
+       }
+     }
+   }
+  {% endif %}
+  {% endfor %}
+ }
+}

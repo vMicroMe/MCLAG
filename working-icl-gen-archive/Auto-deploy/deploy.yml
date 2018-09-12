@@ -1,0 +1,57 @@
+---
+
+- name: Create Directories
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - setup
+
+- name: Create ICCP
+  hosts: mlag
+  connection: local
+  gather_facts: no
+  roles:
+    - iccp-config
+
+- name: Create Bundle
+  hosts: mlag
+  connection: local
+  gather_facts: no
+  roles:
+    - mlag
+
+- name: Create Leaf Bundle
+  hosts: leaf
+  connection: local
+  gather_facts: no
+  roles:
+    - leaf
+
+- name: Create SRX Config
+  hosts: srx
+  connection: local
+  gather_facts: no
+  roles:
+    - srx-config
+
+- name: Create Proto Config
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - protocols
+
+- name: Create VLAN config
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - vlans
+
+- name: Assembeling configs
+  hosts: all
+  connection: local
+  gather_facts: no
+  roles:
+    - assemble

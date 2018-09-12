@@ -1,0 +1,23 @@
+topo:
+  nbr_reth: 10
+  reth:
+    to_vcf:
+      key: 0
+      rd_group: 0
+      links:
+        - "xe-0/0/3"
+        - "xe-1/0/3"
+      units:
+        unit10:
+          u_id: 10
+          u_ip: "10.10.100.1/24"
+    to_qfx10k:
+      key: 1
+      rd_group: 0
+      links:
+        - "xe-0/0/3"
+        - "xe-1/0/3"
+      units:
+        unit10:
+          u_id: 10
+          u_ip: "10.10.100.1/24"

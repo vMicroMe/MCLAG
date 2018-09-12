@@ -1,0 +1,5 @@
+  - name: creating vlans related config
+    template:
+      src: templates/vlan.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
+

@@ -1,0 +1,13 @@
+vlans {
+    Produntrust-to-vqfx  {
+        vlan-id 701;
+              l3-interface irb.701;
+          }
+    Agg-to-vQFX  {
+        vlan-id 703;
+          }
+    default {
+        vlan-id 1;
+    }
+
+}

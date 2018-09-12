@@ -1,0 +1,6 @@
+
+  - name: assembling the fragments-changes
+    assemble:
+      src: temp-config/{{inventory_hostname}}
+      dest:  config/{{inventory_hostname}}/{{inventory_hostname}}.conf
+
