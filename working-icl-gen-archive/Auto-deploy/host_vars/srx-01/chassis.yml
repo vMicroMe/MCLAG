@@ -1,0 +1,11 @@
+rd_grp:
+  rdgrp_1:
+    rd_id: 1
+    node0: 100
+    node1: 90
+    prempt: yes
+  rdgrp_2:
+    rd_id: 2
+    node0: 90
+    node1: 100
+    prempt: yes
