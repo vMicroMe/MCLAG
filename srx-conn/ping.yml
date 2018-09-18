@@ -1,0 +1,61 @@
+---
+- hosts: srx-t
+  gather_facts: no
+  connection: local
+  roles:
+    - Juniper.junos
+ 
+  tasks:
+#    - name: Get system uptime
+#      junos_srx_cluster:
+#        host={{ inventory_hostname }}
+#        user=packt
+#        passwd=password123
+#        cluster_enable=yes
+#        cluster_id=1
+#        node=0
+#        logfile=cluster.log
+    - name: get system info
+      juniper_junos_rpc:
+        rpcs:
+#          - get-system-uptime-information
+          - get-chassis-cluster-status
+        provider:
+          host: "192.168.1.100"
+#          port: 22
+#          user: "packt"
+#          passwd: "password123"
+      register: uptime
+
+    - name: Installing config
+      juniper_junos_config:
+        provider:
+          host: "{{ ansible_host}}"
+          timeout: 1000
+        load: merge
+        src: "config/srx-t.conf"
+        diff: yes
+        dest_dir: "./"
+        comment: merging configs
+      register: config_results
+     
+    - name:
+      debug:
+        var: config_results
+
+#    - name: remove from cluster if it is cluster
+#      junos_srx_cluster:
+#        host={{ inventory_hostname }}
+#        user=packt
+#        passwd=password123
+#        cluster_enable=yes
+#        cluster_id=1
+#        node=0
+#        logfile=cluster.log
+
+
+    - name: output
+      debug:
+        var: uptime.parsed_output["chassis-cluster-status"]["cluster-id"]
+      when: uptime.parsed_output["chassis-cluster-status"]["cluster-id"] != "0"
+

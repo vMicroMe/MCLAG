@@ -3,21 +3,22 @@ topo:
   reth:
     to_vcf:
       key: 0
-      rd_group: 0
+      rd_group: 1
       links:
         - "xe-0/0/3"
-        - "xe-1/0/3"
+        - "xe-7/0/3"
       units:
         unit10:
           u_id: 10
           u_ip: "10.10.100.1/24"
-    to_qfx10k:
+    to_QFX10:
       key: 1
-      rd_group: 0
+      rd_group: 2
       links:
-        - "xe-0/0/3"
-        - "xe-1/0/3"
+        - "xe-0/0/2"
+        - "xe-7/0/2"
       units:
         unit10:
           u_id: 10
-          u_ip: "10.10.100.1/24"
+          u_ip: "10.10.101.1/24"
+  

@@ -4,31 +4,20 @@ zones:
     zone1:
       name: trust
       interfaces:
-        xe-0/0/1:
+        reth0.10:
           system_services:
             - ping
           protocols:
             - ospf
-        xe-0/0/4:
-          system_services:
-            - ping
-            - ike
-          protocols:
-            - ospf
-            - bgp
     zone2: 
       name: untrust
       interfaces:
-          xe-0/0/10:       
+          reth1.10:       
             system_services:
               - ping 
             protocols:
               - ospf
-          xe-0/0/14:
-            system_services:
-              - ping
-            protocols:
-              - ospf
+
 
 
 

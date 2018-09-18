@@ -3,24 +3,28 @@
 
 interfaces {
 {% for name, intf in topo.reth.items() %}
-{% for linkname in intf.links %}
- {{linkname}} {
-    gigether-options {
-        redundant-parent reth{{intf.key}};
-    }
-}
-{% endfor %}
+  {% for linkname in intf.links %}
+   {{linkname}} {
+     gigether-options {
+         redundant-parent reth{{intf.key}};
+     }
+ }
+  {% endfor %}
 
 reth{{intf.key}} {
   vlan-tagging;
-    {% for uname, unit in intf.units.items() %}
+     redundant-ether-options {
+        redundancy-group {{intf.rd_group}};
+    }
+
+   {% for uname, unit in intf.units.items() %}
   unit {{unit.u_id}} {
         vlan-id {{unit.u_id}};
         family inet {
             address {{unit.u_ip}};
         }
     }
-   {% endfor %}                                   
+    {% endfor %}                                   
 }
 {% endfor %}
 }
@@ -109,4 +113,19 @@ policies {
   }
  } 
 
+chassis {
+    cluster {
+        reth-count {{ topo.nbr_reth}};
+        redundancy-group 0 {
+            node 0 priority 100;
+            node 1 priority 90;
+        }
+        {% for name, rg in rd_grp.items() %}
+        redundancy-group {{rg.rd_id }} {
+            node 0 priority {{rg.node0}};
+            node 1 priority {{rg.node1}};
+        }
+       {% endfor %}
+    }
+}
 

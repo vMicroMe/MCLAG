@@ -4,14 +4,12 @@ ospf:
       type: backbone
       nmbr: 0
       intf:
-        - xe-0/0/1
-        - xe-0/0/2
+        - reth0.10
     area2:
       type: nbackbone
       nmbr: 1
       intf:
-        - xe-0/0/1
-        - xe-0/0/2
+        - reth1.10
   spine-01:
     area1:
       type: backbone
