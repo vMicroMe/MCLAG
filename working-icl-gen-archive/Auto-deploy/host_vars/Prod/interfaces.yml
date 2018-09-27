@@ -1,0 +1,28 @@
+topo:
+  nbr_reth: 2
+  reth:
+    to_vcf:
+      key: 1
+      rd_group: 1
+      links:
+        - "xe-0/0/17"
+        - "xe-0/0/19"
+        - "xe-7/0/17"
+        - "xe-7/0/19"
+      units:
+        unit506:
+          u_id: 506
+          u_ip: "10.100.12.254/24"
+    to_QFX10:
+      key: 0
+      rd_group: 2
+      links:
+        - "xe-0/0/16"
+        - "xe-0/0/18"
+        - "xe-7/0/16"
+        - "xe-7/0/18"
+      units:
+        unit701:
+          u_id: 701
+          u_ip: "10.101.3.9/29"
+  

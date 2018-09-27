@@ -1,0 +1,23 @@
+
+zones:
+  sec_zones:
+    zone1:
+      name: PROD_TRANSIT
+      interfaces:
+        reth1.506:
+          system_services:
+            - ping
+          protocols:
+            - ospf
+    zone2: 
+      name: CORE
+      interfaces:
+          reth0.701:       
+            system_services:
+              - ping 
+            protocols:
+              - ospf
+
+
+
+

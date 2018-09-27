@@ -1,0 +1,14 @@
+vlans {
+{% for vname, vlan in vlans.items() %}
+    {{ vlan.name }}  {
+        vlan-id {{ vlan.id }};
+      {% if vlan.ip is defined %}
+        l3-interface vlan.{{ vlan.id }};
+      {% endif %}
+    }
+{% endfor %}
+    default {
+        vlan-id 1;
+    }
+
+}

@@ -1,0 +1,23 @@
+
+zones:
+  sec_zones:
+    zone1:
+      name: TND_TRANSIT
+      interfaces:
+        reth1.606:
+          system_services:
+            - ping
+          protocols:
+            - ospf
+    zone2: 
+      name: CORE
+      interfaces:
+          reth0.702:       
+            system_services:
+              - ping 
+            protocols:
+              - ospf
+
+
+
+

@@ -1,0 +1,24 @@
+
+zones:
+  sec_zones:
+    zone1:
+      name: WAN
+      interfaces:
+        reth0.704:
+          system_services:
+            - ping
+            - ike
+          protocols:
+            - ospf
+    zone2: 
+      name: CORE
+      interfaces:
+          reth1.703:       
+            system_services:
+              - ping 
+            protocols:
+              - ospf
+
+
+
+

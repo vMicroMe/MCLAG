@@ -1,0 +1,40 @@
+---
+- hosts: all
+  gather_facts: no
+  connection: local
+  roles:
+    - Juniper.junos
+ 
+  tasks:
+    - name: Pushing Configs  
+      juniper_junos_config:
+        provider:
+          host: "{{ junos_host}}"
+          timeout: 1000
+        load: merge
+        src: "config/{{ansible_host }}/{{ansible_host}}.conf"
+        diff: yes
+        dest_dir: "./"
+        comment: merging configs
+      register: config_results
+     
+    - name:
+      debug:
+        vars: config_results
+
+#    - name: remove from cluster if it is cluster
+#      junos_srx_cluster:
+#        host={{ inventory_hostname }}
+#        user=packt
+#        passwd=password123
+#        cluster_enable=yes
+#        cluster_id=1
+#        node=0
+#        logfile=cluster.log
+
+
+#    - name: output
+#      debug:
+#        var: uptime.parsed_output["chassis-cluster-status"]["cluster-id"]
+#      when: uptime.parsed_output["chassis-cluster-status"]["cluster-id"] != "0"
+

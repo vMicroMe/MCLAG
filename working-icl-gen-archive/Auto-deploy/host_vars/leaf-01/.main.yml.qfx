@@ -1,0 +1,64 @@
+topo:
+  nbr_ae: 10
+  uplink:
+    To-mallanox:
+      key: 0
+      links:
+        - "et-2/0/50"
+        - "et-3/0/51"
+      v_mem:
+        - "all"
+    To-QFX10k:
+      key: 0
+      links:
+        - "et-1/0/50"
+        - "et-0/0/51"
+        - "et-1/0/50"
+        - "et-0/0/51"
+      v_mem:
+        - "PACS"
+        - "Hardware-Management" 
+        - "Server-Management"
+
+    Prod-Primary:
+      key: 4
+      links:
+        - "xe-0/0/0"
+        - "xe-1/0/0"
+      v_mem:
+        - "all"
+    Prod-Sec:
+      key: 5
+      links:
+        - "xe-0/0/2"
+        - "xe-1/0/2"
+      v_mem:
+        - "all"
+    Tnd-Primary:
+      key: 6
+      links:
+        - "xe-0/0/1"
+        - "xe-1/0/1"
+      v_mem:
+        - "all"
+    Tnd-Sec:
+      key: 7
+      links:
+        - "xe-0/0/3"
+        - "xe-1/0/3"
+      v_mem:
+        - "all"
+
+
+
+
+#  dlink:
+#    to_server2:
+#      key: 4
+#      links:
+#        - "xe-0/0/5"
+#        - "xe-0/0/6"
+#      v_mem:
+#        - "all"
+       
+

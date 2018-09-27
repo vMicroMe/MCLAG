@@ -1,0 +1,68 @@
+
+chassis {
+    aggregated-devices {
+        ethernet {
+            device-count {{topo.nbr_ae}};
+        }
+    }
+ }
+
+interfaces {
+
+{% for name, topo in topo.uplink.items() %}
+
+    {% for links in topo.links %}
+    {{ links }} {
+        ether-options {
+            802.3ad ae{{topo.key}};
+        }
+    } 
+    {% endfor %}
+
+    ae{{topo.key}} {
+   description "{{name}}"; 
+    aggregated-ether-options {
+        lacp {
+            active;
+        }
+    }
+        unit 0 {                        
+            family ethernet-switching {
+                port-mode trunk;
+                vlan {
+                    members [ {% for vlan in topo.v_mem%} {{vlan}} {% endfor %} ];
+                }
+            }
+        }
+    }
+
+{% endfor %}
+
+
+
+
+
+
+{% for name, vlan in vlans.iteritems()  %}
+{% if vlan.ip is defined %}
+  vlan {
+     unit {{ vlan.id}} {
+          family inet {
+        address {{ vlan.ip }}/{{vlan.mask}} ;
+   
+     }
+   }
+{% endif %}
+{% endfor %}
+ }
+
+
+
+
+
+
+
+
+
+}
+

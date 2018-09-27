@@ -1,0 +1,37 @@
+topo:
+  nbr_ae: 10
+  uplink:
+    To-HBL-Power8-VIO:
+      key: 0
+      links:
+        - "ge-0/0/1"
+        - "ge-0/0/2"
+        - "ge-0/0/3"
+        - "ge-0/0/4"
+      v_mem:
+        - "all"
+    To-EX200:
+      key: 1
+      links:
+        - "ge-0/0/23"
+        - "ge-0/0/22"
+        - "ge-0/0/21"
+        - "ge-0/0/20"
+      v_mem:
+        - "all"
+
+
+
+
+
+
+#  dlink:
+#    to_server2:
+#      key: 4
+#      links:
+#        - "xe-0/0/5"
+#        - "xe-0/0/6"
+#      v_mem:
+#        - "all"
+       
+

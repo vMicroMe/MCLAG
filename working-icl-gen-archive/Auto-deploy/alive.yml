@@ -1,0 +1,17 @@
+---
+- hosts: srx-01
+  gather_facts: no
+  connection: local
+  strategy: free   
+  tasks:
+     
+    - name: testig
+      wait_for: 
+        port: 22
+        host: "{{ junos_host }} "
+        state: started
+#        delay: 20
+        sleep: 20
+        timeout: 600 
+
+...

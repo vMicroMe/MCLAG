@@ -1,0 +1,50 @@
+---
+- hosts: clusters
+  gather_facts: no
+  connection: local
+  roles:
+    - Juniper.junos
+ 
+  tasks:
+    - name: Creating Cluster  
+      junos_srx_cluster:
+        host: "{{ junos_host }}"
+        cluster_enable: yes
+        cluster_id: "{{cluster_id}}"
+        node: "{{ nid }} "  # Just want to be explicit as to which one I want as node0
+        logfile: cluster.log
+      register: uptime
+
+#    - name: Installing config
+#      juniper_junos_config:
+#        provider:
+#          host: "{{ ansible_host}}"
+#          timeout: 1000
+#        load: merge
+#        src: "config/srx-t.conf"
+#        diff: yes
+#        dest_dir: "./"
+#        comment: merging configs
+#      register: config_results
+     
+    - name:
+      debug:
+        msg: "System has been moved to standalone mode, rebooted and will be back in couple of minutes"
+      when: uptime.changed == true
+
+#    - name: remove from cluster if it is cluster
+#      junos_srx_cluster:
+#        host={{ inventory_hostname }}
+#        user=packt
+#        passwd=password123
+#        cluster_enable=yes
+#        cluster_id=1
+#        node=0
+#        logfile=cluster.log
+
+
+#    - name: output
+#      debug:
+#        var: uptime.parsed_output["chassis-cluster-status"]["cluster-id"]
+#      when: uptime.parsed_output["chassis-cluster-status"]["cluster-id"] != "0"
+

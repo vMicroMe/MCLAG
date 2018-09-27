@@ -1,0 +1,28 @@
+topo:
+  nbr_reth: 2
+  reth:
+    to_wan_mx4:
+      key: 0 
+      rd_group: 1
+      links:
+        - "ge-0/0/13"
+        - "ge-7/0/13"
+        - "ge-0/0/15"
+        - "ge-7/0/15"
+      units:
+        unit704:
+          u_id: 704
+          u_ip: "10.100.3.33/29"
+    to_QFX10:
+      key: 1
+      rd_group: 2
+      links:
+        - "xe-0/0/17"
+        - "xe-7/0/17"
+        - "xe-0/0/19"
+        - "xe-7/0/19"
+      units:
+        unit703:
+          u_id: 703
+          u_ip: "10.100.3.25/29"
+  
