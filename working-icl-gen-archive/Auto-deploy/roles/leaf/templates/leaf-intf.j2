@@ -1,6 +1,9 @@
 
-{% for name, topo in topo.uplink.items() %}
+
 interfaces {
+
+{% for name, topo in topo.uplink.items() %}
+
     {% for links in topo.links %}
     {{ links }} {
         ether-options {
@@ -10,15 +13,18 @@ interfaces {
     {% endfor %}
 
     ae{{topo.key}} {
+      description "{{name}}";
         unit 0 {                        
             family ethernet-switching {
                 interface-mode trunk;
                 vlan {
-                    members [ {% for name, vlan in vlans.items()%} {{vlan.name}} {% endfor %} ];
+                    members [ {% for vlan in topo.v_mem%} {{vlan}} {% endfor %} ];
                 }
             }
         }
     }
-}
+
 {% endfor %}
+
+}
 

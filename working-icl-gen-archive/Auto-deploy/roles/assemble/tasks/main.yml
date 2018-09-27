@@ -3,4 +3,9 @@
     assemble:
       src: temp-config/{{inventory_hostname}}
       dest:  config/{{inventory_hostname}}/{{inventory_hostname}}.conf
+  - name:
+    file:
+     path: temp-config/{{inventory_hostname}}
+     state: absent
+     
 

@@ -2,4 +2,13 @@
     template:
       src: templates/vlan.j2
       dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
+    when: type == "qfx"
+
+  - name: creating vlans related config for ex
+    template:
+      src: templates/vlan_ex.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.vlans.part
+    when: type == "ex"
+
+
 

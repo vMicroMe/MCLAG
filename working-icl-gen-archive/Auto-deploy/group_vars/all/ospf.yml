@@ -1,19 +1,24 @@
 ospf:
-  srx-01:
+  Prod:
     area1: 
       type: backbone
       nmbr: 0
       intf:
-        - reth0.10
-    area2:
-      type: nbackbone
-      nmbr: 1
-      intf:
-        - reth1.10
-  spine-01:
+        - reth0.701
+#    area2:
+#      type: nbackbone
+#      nmbr: 1
+#      intf:
+#        - reth1.10
+  TnD:
     area1:
       type: backbone
       nmbr: 0
       intf:
-        - irb.701
-        - irb.702
+        - reth0.702
+  wane:
+    area1:
+      type: backbone
+      nmbr: 0
+      intf:
+        - reth1.703

@@ -1,8 +1,16 @@
+
 vlans:
-  V100:
-    id: 703
-    name: Agg-to-vQFX
   V101:
-    id: 701
-    name: Produntrust-to-vqfx
+    id: 50
+    name: HBL-Testing
+    ip: 192.168.0.199
+    mask: 24
+
+
+
+#  V101:
+#    id: 701
+#    name: Produntrust-to-vqfx
+#    ip: "{{ '10.100.3.10' if inventory_hostname == 'spine-01' else '10.100.3.11' }}"
+#    mask: 29
 

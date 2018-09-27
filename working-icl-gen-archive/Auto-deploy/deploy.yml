@@ -1,7 +1,7 @@
 ---
 
 - name: Create Directories
-  hosts: all
+  hosts: all:!stand_srx
   connection: local
   gather_facts: no
   roles:
@@ -29,29 +29,33 @@
     - leaf
 
 - name: Create SRX Config
-  hosts: srx
+  hosts: clusters
   connection: local
   gather_facts: no
   roles:
     - srx-config
 
 - name: Create Proto Config
-  hosts: all
+  hosts: all:!stand_srx
   connection: local
   gather_facts: no
   roles:
     - protocols
 
 - name: Create VLAN config
-  hosts: all
+  hosts: all:!stand_srx:!clusters
   connection: local
   gather_facts: no
   roles:
     - vlans
 
 - name: Assembeling configs
-  hosts: all
+  hosts: all:!stand_srx
   connection: local
   gather_facts: no
   roles:
     - assemble
+
+
+
+
