@@ -6,6 +6,8 @@
   gather_facts: no
   roles:
     - setup
+  tags:
+    - always
 
 - name: Create ICCP
   hosts: mlag
@@ -13,6 +15,8 @@
   gather_facts: no
   roles:
     - iccp-config
+  tags: 
+    - MLAG-Proto
 
 - name: Create Bundle
   hosts: mlag
@@ -20,12 +24,16 @@
   gather_facts: no
   roles:
     - mlag
+  tags: 
+    - MLAG-Bundle
 
 - name: Create Leaf Bundle
   hosts: leaf
   connection: local
   gather_facts: no
   roles:
+    - leaf
+  tags: 
     - leaf
 
 - name: Create SRX Config
@@ -34,6 +42,8 @@
   gather_facts: no
   roles:
     - srx-config
+  tags: 
+    - cluster
 
 - name: Create Proto Config
   hosts: all:!stand_srx
@@ -41,12 +51,16 @@
   gather_facts: no
   roles:
     - protocols
+  tags: 
+    - proto
 
 - name: Create VLAN config
   hosts: all:!stand_srx:!clusters
   connection: local
   gather_facts: no
   roles:
+    - vlans
+  tags: 
     - vlans
 
 - name: Assembeling configs
@@ -55,7 +69,8 @@
   gather_facts: no
   roles:
     - assemble
-
+  tags: 
+    - assemble
 
 
 

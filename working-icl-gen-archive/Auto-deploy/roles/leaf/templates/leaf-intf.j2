@@ -14,7 +14,12 @@ interfaces {
 
     ae{{topo.key}} {
       description "{{name}}";
-        unit 0 {                        
+     aggregated-ether-options {
+        lacp {
+            active;
+        }
+    }
+       unit 0 {                        
             family ethernet-switching {
                 interface-mode trunk;
                 vlan {

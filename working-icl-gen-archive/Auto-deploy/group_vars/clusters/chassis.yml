@@ -9,3 +9,22 @@ rd_grp:
     node0: 90
     node1: 100
     prempt: yes
+
+
+fab0:
+  - "ge-0/0/4"
+  - "ge-0/0/2"
+fab1:
+  - "ge-7/0/4"
+  - "ge-7/0/2"
+group0:
+  hostname: SRX-Node0
+  fxp0:  "10.23.1.24/24"
+  backup_router: "10.23.1.1"
+  dest: "9.9.9.9"
+group1:
+  hostname: SRX-Node1
+  fxp0:  "10.23.1.25/24"
+  backup_router: "10.23.1.1"
+  dest: "9.9.9.9"
+

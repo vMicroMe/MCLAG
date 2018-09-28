@@ -2,3 +2,9 @@
     template:
       src: templates/srx.j2
       dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.part.conf
+
+
+  - name: SRX group config
+    template: 
+      src: templates/group.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.part1.conf

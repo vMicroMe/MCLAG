@@ -1,5 +1,5 @@
 {# hurray #}
-#jinja2: trim_blocks:False
+#jinja2: trim_blocks:True
 
 interfaces {
 {% for name, intf in topo.reth.items() %}
@@ -12,8 +12,12 @@ interfaces {
   {% endfor %}
 
 reth{{intf.key}} {
+
   vlan-tagging;
      redundant-ether-options {
+    lacp {
+        active;
+    }
         redundancy-group {{intf.rd_group}};
     }
 
@@ -27,6 +31,23 @@ reth{{intf.key}} {
     {% endfor %}                                   
 }
 {% endfor %}
+
+
+   fab0 { 
+       fabric-options {
+           member-interfaces {       {% for members in fab0 %} 
+               {{members+";"}}       {% endfor %}
+        } 
+      } 
+    } 
+  fab1 { 
+      fabric-options {
+          member-interfaces {        {% for members in fab1 %} 
+              {{members+";"}}        {% endfor %}
+           } 
+        } 
+    } 
+
 }
 
 
