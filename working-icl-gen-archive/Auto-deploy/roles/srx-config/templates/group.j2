@@ -1,0 +1,33 @@
+groups { 
+    node0 { 
+        system { 
+            host-name {{group0.hostname }}; 
+            backup-router {{ group0.backup_router}} destination {{ group0.dest }};
+        } 
+        interfaces { 
+            fxp0 { 
+                unit 0 { 
+                    family inet { 
+                        address {{ group0.fxp0 }} ;
+                    } 
+                } 
+            }
+        }
+    }
+    node1 { 
+        system { 
+            host-name {{group1.hostname }};
+            backup-router {{ group1.backup_router}} destination {{ group1.dest }};     
+        }
+        interfaces { 
+            fxp0 { 
+                unit 0 { 
+                    family inet { 
+                        address {{ group1.fxp0 }}    ;
+                    } 
+                } 
+            }
+        }
+    }
+}
+apply-groups "${node}";
