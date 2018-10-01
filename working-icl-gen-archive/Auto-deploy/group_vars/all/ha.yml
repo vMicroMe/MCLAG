@@ -1,0 +1,14 @@
+
+# Gracefull Restart feature
+GRES:
+  - spine-01 # Node that need GRES feature, this should match "hosts" file
+  - leaf-01
+  - spine-02
+NSB: # Non stop bridging
+  - spine-01
+  - leaf-01
+  - spine-01
+NSR: # Non Stop Routing
+  - spine-01
+  - leaf-01
+  - spine-02

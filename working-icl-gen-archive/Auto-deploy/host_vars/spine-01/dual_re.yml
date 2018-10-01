@@ -1,0 +1,10 @@
+re0: # This config is for dual re. if your spine is dual re,then please assign values here otherwise comment them
+  hostname: Spine-re0
+  fxp0:  "10.23.1.24/24"
+  #backup_router: "10.23.1.1"
+  #dest: "9.9.9.9"
+re1:
+  hostname: spine-req
+  fxp0:  "10.23.1.25/24"
+  #backup_router: "10.23.1.1"
+  #dest: "9.9.9.9"

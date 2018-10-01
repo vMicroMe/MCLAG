@@ -15,6 +15,27 @@ protocols {
 {% endif %}
 {% endfor %}
 
+  {% for node in NSB %}
+     {% if node == inventory_hostname %}
+   protocols {
+    layer2-control{
+     nonstop-bridging;
+  }
+ }
+     {% endif %}
+  {% endfor %}
+
+
+  {% for node in NSR %}
+     {% if node == inventory_hostname %}
+   routing-options{
+   
+     nonstop-routing;
+  
+ }
+     {% endif %}
+  {% endfor %}
+
 
 
 

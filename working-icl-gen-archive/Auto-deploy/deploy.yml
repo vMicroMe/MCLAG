@@ -63,6 +63,17 @@
   tags: 
     - vlans
 
+- name: Create grou config
+  hosts: all:!stand_srx:!clusters
+  connection: local
+  gather_facts: no
+  roles:
+    - dual_re
+  tags:
+    - dualk_re
+
+
+
 - name: Assembeling configs
   hosts: all:!stand_srx
   connection: local

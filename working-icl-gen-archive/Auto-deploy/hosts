@@ -12,12 +12,12 @@ wane    junos_host=192.168.0.102  type=srx
 #################################################################
 
 
-spine-01 junos_host=10.1.1.23 id=1   type=qfx
-spine-02 junos_host=10.1.1.24 id=2   type=qfx
+spine-01 junos_host=10.1.1.23 id=1   type=qfx  hasdualre="yes"
+spine-02 junos_host=10.1.1.24 id=2   type=qfx  hasdualre="no"
 
 
-leaf-01  junos_host=192.168.0.100 id=3 type="ex"
-leaf-02  junos_host=192.168.0.200 id=4 type="ex"
+leaf-01  junos_host=192.168.0.100 id=3 type="ex" hasdualre="no"
+leaf-02  junos_host=192.168.0.200 id=4 type="ex" hasdualre="no"
 
 
 #[stand_srx]

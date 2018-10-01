@@ -1,4 +1,11 @@
 chassis {
+  {% for node in GRES %}
+     {% if node == inventory_hostname %}
+    redundancy {
+     graceful-switchover;
+  }
+     {% endif %}
+  {% endfor %}
     aggregated-devices {
         ethernet {
             device-count 11;

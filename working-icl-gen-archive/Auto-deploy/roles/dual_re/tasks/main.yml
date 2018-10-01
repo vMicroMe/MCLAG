@@ -1,0 +1,5 @@
+  - name: Populating dual re configs
+    template:
+      src: templates/dual_re.j2
+      dest: temp-config/{{inventory_hostname}}/{{inventory_hostname}}.dualre.part
+    when: hasdualre == "yes"
