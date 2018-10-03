@@ -1,0 +1,31 @@
+# this is your interface details for srx clusters
+
+
+topo:
+  nbr_reth: 2
+  reth:
+    to_lan:
+      key: 0
+      rd_group: 1
+      links:
+        - "xe-0/0/3"
+        - "xe-0/0/4"
+        - "xe-7/0/3"
+        - "xe-7/0/4"
+      units:
+        unit506:
+          u_id: 506
+          u_ip: "10.10.2.254/24"
+    to_QFX10:
+      key: 1
+      rd_group: 2
+      links:
+        - "xe-0/0/5"
+        - "xe-0/0/6"
+        - "xe-7/0/5"
+        - "xe-7/0/6"
+      units:
+        unit701:
+          u_id: 705
+          u_ip: "10.10.1.254"
+  

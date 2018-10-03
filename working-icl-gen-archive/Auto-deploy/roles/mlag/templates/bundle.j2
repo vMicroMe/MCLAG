@@ -11,6 +11,12 @@ interfaces {
 
     {# this is for configuring iccp bundle with ip #}
     {{ mclag.iccp_interface }}{
+		   aggregated-ether-options {
+            lacp {
+                active;
+            }
+         }
+
         unit 0 {
             family inet {
                 address {{ mclag.iccp.local_ip }}/30;
@@ -21,9 +27,17 @@ interfaces {
     {# this of icl bundle link #}
     {{ mclag.icl_interface }}{
         description "{{ mclag.icl.description }}";
+	  aggregated-ether-options {
+            lacp {
+                active;
+            }
+         }
         unit 0 {
              family ethernet-switching {
                interface-mode trunk;
+               vlan {                          
+            members all;
+        }
           }
       }
     }
@@ -63,12 +77,14 @@ interfaces {
                 status-control {{ mclag.status_control }};
                 init-delay-time 240;
                 enhanced-convergence;
+		{% if mclag.status_control == "active" %}
                 events {
                     iccp-peer-down {
                         prefer-status-control-active;
                     }
                 }
-            }
+	       {% endif %}
+            } 
         }
         unit 0 {
             family ethernet-switching {
@@ -91,7 +107,7 @@ interfaces {
       family inet {
         address {{ vlan.ip }}/{{vlan.mask}} {
        {% if mclag.l3_routing == "Yes" %}
-        arp {{ vlan.R_IP }} l2-interface {{ mclag.iccp_interface }}.0 mac {{ mclag.rmac }};
+        arp {{ vlan.R_IP }} l2-interface {{ mclag.icl_interface }}.0 mac {{ mclag.rmac }};
         {% endif %}
          vrrp-group {{vlan.vrrp_id }} {
               virtual-address {{ vlan.vip }};
@@ -103,4 +119,11 @@ interfaces {
   {% endif %}
   {% endfor %}
  }
+
+}
+
+multi-chassis {
+    multi-chassis-protection  {{ mclag.iccp.peer_ip}}  {
+        interface {{ mclag.icl_interface }};
+    }
 }

@@ -1,0 +1,67 @@
+mclag_id: "{{ id - ((id//2)*2) }}"
+
+mclag:
+  nbr_ae: 10
+  mac:  02:05:86:71:d2:10    # this your system ID, it should remain same for spine02
+  rmac: 02:05:86:71:71:00
+  enhanced_convergence: "Yes"
+  l3_routing: "Yes"
+  mode: active-active
+  iccp_interface: ae100
+  icl_interface: ae3
+  chassis_id: "{{ mclag_id }}"
+  status_control: "{{ 'active' if mclag_id == '0' else 'standby' }}"
+  iccp:
+    links:
+      - "xe-0/0/1"
+    local_ip: "{{ '10.100.3.1' if mclag_id == '0' else '10.100.3.2' }}"
+    peer_ip: "{{ '10.100.3.2' if mclag_id == '0' else '10.100.3.1' }}"
+  icl:
+    links:
+      - "et-0/0/63"
+      - "et-0/0/64"
+    description: ICL interface
+  mcae:
+    to_VCF:
+      key: 1
+      links:
+        - "et-0/0/61"
+        - "et-0/0/62"
+        -
+    to_SRX-Prod-Pri:
+      key: 11
+      links:
+        - "xe-0/0/2"
+    to_SRX-Prod-Sec:
+      key: 12
+      links:
+        - "xe-0/0/0"
+    to_SRX-TnD-Pr:
+      key: 13
+      links:
+        - "xe-0/0/5"
+    to_SRX-TnD-Sec:
+      key: 14
+      links:
+        - "xe-0/0/4"
+    to_SRX-wane-pri:
+      key: 15
+      links:
+        - "xe-0/0/6"
+    to_SRX-wane-sec:
+      key: 16
+      links:
+        - "xe-0/0/9"
+
+
+
+
+
+
+
+
+
+
+
+
+

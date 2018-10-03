@@ -1,4 +1,5 @@
 chassis {
+ {% if GRES is defined %}
   {% for node in GRES %}
      {% if node == inventory_hostname %}
     redundancy {
@@ -6,6 +7,7 @@ chassis {
   }
      {% endif %}
   {% endfor %}
+ {% endif %}
     aggregated-devices {
         ethernet {
             device-count 11;

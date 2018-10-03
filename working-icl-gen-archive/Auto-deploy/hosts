@@ -1,28 +1,28 @@
 
 
 #######################SRX standalone firewall ###################
-#srx-01  junos_host=192.168.0.100 nid=0  cluster_id=1
-#srx-02  junos_host=192.168.0.101 nid=1  cluster_id=1
+srx-01  junos_host=10.10.72.156 nid=0  cluster_id=1
+srx-02  junos_host=10.10.72.157 nid=1  cluster_id=1
 #srx-03  junos_host=192.168.0.103 nid=0  cluster_id=2
 #srx-04  junos_host=192.168.0.104 nid=1  cluster_id=2
 ##################################################################
-Prod    junos_host=192.168.0.101  type=srx 
-TnD     junos_host=192.168.0.102  type=srx
-wane    junos_host=192.168.0.102  type=srx
+clusterProd    junos_host=10.10.72.158 type=srx 
+#clusterTnD     junos_host=192.168.0.102  type=srx
+#clusterwane    junos_host=192.168.0.102  type=srx
 #################################################################
 
 
-spine-01 junos_host=10.1.1.23 id=1   type=qfx  hasdualre="yes"
-spine-02 junos_host=10.1.1.24 id=2   type=qfx  hasdualre="no"
+spine-01 junos_host=10.10.10.72.159 id=1   type=qfx  hasdualre="no"
+spine-02 junos_host=10.10.72.160 id=2   type=qfx  hasdualre="no"
 
 
-leaf-01  junos_host=192.168.0.100 id=3 type="ex" hasdualre="no"
-leaf-02  junos_host=192.168.0.200 id=4 type="ex" hasdualre="no"
+#leaf-01  junos_host=192.168.0.100 id=3 type="ex" hasdualre="no"
+#leaf-02  junos_host=192.168.0.200 id=4 type="ex" hasdualre="no"
 
 
-#[stand_srx]
-#srx-01
-#srx-02
+[stand_srx]
+srx-01
+srx-02
 #srx-03
 #srx-04
 
@@ -33,21 +33,21 @@ spine-02
 
 
 [clusters]
-Prod
-TnD
-wane
+clusterProd
+#TnD
+#wane
 
 
-[leaf]
-leaf-01
-leaf-02
+#[leaf]
+#leaf-01
+#leaf-02
 
 
 
 
 
 [all:vars]
-ansible_python_interpreter=/home/packt/venv2.7/bin/python
+ansible_python_interpreter=/home/waqar/myansible/bin/python
 
 
 

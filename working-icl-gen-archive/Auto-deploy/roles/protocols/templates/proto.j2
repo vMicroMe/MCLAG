@@ -14,7 +14,7 @@ protocols {
  }
 {% endif %}
 {% endfor %}
-
+{% if NSB is defined %}
   {% for node in NSB %}
      {% if node == inventory_hostname %}
    protocols {
@@ -24,7 +24,9 @@ protocols {
  }
      {% endif %}
   {% endfor %}
+{% endif %}
 
+{% if NSR is defined %}
 
   {% for node in NSR %}
      {% if node == inventory_hostname %}
@@ -36,6 +38,7 @@ protocols {
      {% endif %}
   {% endfor %}
 
+{% endif %}
 
 
 

@@ -1,24 +1,28 @@
+#This is aan ospf topology. 
+
+
+
 ospf:
-  Prod:
+  clusterProd: #name of device, should be as it is as in hostfile
     area1: 
-      type: backbone
-      nmbr: 0
+      type: backbone   # for fture user NSSA or TSSA etc
+      nmbr: 0  # Number
       intf:
-        - reth0.701
+        - reth1.705
 #    area2:
 #      type: nbackbone
 #      nmbr: 1
 #      intf:
 #        - reth1.10
-  TnD:
+  spine-01:
     area1:
       type: backbone
       nmbr: 0
       intf:
-        - reth0.702
-  wane:
+        - irb.705
+  spine-02:
     area1:
       type: backbone
       nmbr: 0
       intf:
-        - reth1.703
+        - irb.705

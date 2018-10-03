@@ -1,0 +1,33 @@
+# This is your zone and policy for srx cluster
+policies:
+  zone_spec1:
+    srcz: CORE
+    destz: PROD_TRANSIT
+    flow:
+     policy2:
+       name: "Application-damsels"
+       src: any
+       dest: any
+       app: any
+       action: permit
+  zone_spec2:
+    srcz: PROD_TRANSIT
+    destz: CORE
+    flow:
+      policy2:
+        name: "asdasd"
+        src: any
+        dest: any
+        app:  any
+        action: permit
+    
+#global:
+#  p2:
+#    name: "Axpplication1-damsels"
+#    src: any
+#    dest: any
+#    app: any
+#    action: permit
+#    srcz: any
+#    destz: any
+
