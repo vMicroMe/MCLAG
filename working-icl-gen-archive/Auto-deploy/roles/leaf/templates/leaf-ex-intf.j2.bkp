@@ -1,8 +1,5 @@
-::::::::::::::
-leaf-intf.j2
-::::::::::::::
 chassis {
- {% if GRES is defined %}
+   {% if GRES is defined %}
     {% for node in GRES %}
      {% if node == inventory_hostname %}
     redundancy {
@@ -11,6 +8,7 @@ chassis {
      {% endif %}
     {% endfor %}
  {% endif %}
+
     aggregated-devices {
         ethernet {
             device-count {{topo.nbr_ae}};
@@ -19,24 +17,27 @@ chassis {
  }
 
 interfaces {
+
 {% for name, topo in topo.uplink.items() %}
+
     {% for links in topo.links %}
     {{ links }} {
         ether-options {
             802.3ad ae{{topo.key}};
         }
-    }
+    } 
     {% endfor %}
+
     ae{{topo.key}} {
-      description "{{name}}";
-     aggregated-ether-options {
+   description "{{name}}"; 
+    aggregated-ether-options {
         lacp {
             active;
         }
     }
-       unit 0 {
+        unit 0 {                        
             family ethernet-switching {
-                interface-mode trunk;
+                port-mode trunk;
                 vlan {
                     members [ {% for vlan in topo.v_mem%} {{vlan}} {% endfor %} ];
                 }
@@ -46,21 +47,10 @@ interfaces {
 
 {% endfor %}
 
-{% if topo.dlink is defined %}
-  {% for name, int in topo.dlink.items() %}
 
-{{ int.link[0] }}     {
-        unit 0 {
-            family ethernet-switching {
-                interface-mode access;
-                vlan {
-                    members {{int.v_mem[0]}};
-                }
-            }
-        }
-    }
-  {% endfor %}
-{% endif %}
+
+
+
 
 {% for name, vlan in vlans.iteritems()  %}
 {% if vlan.ip is defined %}
@@ -68,23 +58,21 @@ interfaces {
      unit {{ vlan.id}} {
           family inet {
         address {{ vlan.ip }}/{{vlan.mask}} ;
-
+   
      }
    }
- }
 {% endif %}
 {% endfor %}
-
  }
+}
 
 {% if NSB is defined %}
-
   {% for node in NSB %}
      {% if node == inventory_hostname %}
    protocols {
     layer2-control{
      nonstop-bridging;
-  }
+   }
  }
      {% endif %}
   {% endfor %}
@@ -101,4 +89,5 @@ interfaces {
      {% endif %}
   {% endfor %}
 {% endif %}
+
 

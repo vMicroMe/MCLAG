@@ -1,6 +1,3 @@
-::::::::::::::
-leaf-intf.j2
-::::::::::::::
 chassis {
  {% if GRES is defined %}
     {% for node in GRES %}
@@ -20,12 +17,13 @@ chassis {
 
 interfaces {
 {% for name, topo in topo.uplink.items() %}
+
     {% for links in topo.links %}
     {{ links }} {
         ether-options {
             802.3ad ae{{topo.key}};
         }
-    }
+    } 
     {% endfor %}
     ae{{topo.key}} {
       description "{{name}}";
@@ -34,7 +32,7 @@ interfaces {
             active;
         }
     }
-       unit 0 {
+       unit 0 {                        
             family ethernet-switching {
                 interface-mode trunk;
                 vlan {
@@ -46,21 +44,35 @@ interfaces {
 
 {% endfor %}
 
-{% if topo.dlink is defined %}
-  {% for name, int in topo.dlink.items() %}
 
-{{ int.link[0] }}     {
+{% if topo.dlink defined %}
+{% for name, int in topo.dlink.item() %}
+
+{{ int.link }}     {
         unit 0 {
             family ethernet-switching {
                 interface-mode access;
                 vlan {
-                    members {{int.v_mem[0]}};
+                    members {{int.v_mem}};
                 }
             }
         }
     }
-  {% endfor %}
+{% endfor %}
 {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% for name, vlan in vlans.iteritems()  %}
 {% if vlan.ip is defined %}
@@ -71,10 +83,9 @@ interfaces {
 
      }
    }
- }
 {% endif %}
 {% endfor %}
-
+ }
  }
 
 {% if NSB is defined %}
@@ -101,4 +112,5 @@ interfaces {
      {% endif %}
   {% endfor %}
 {% endif %}
+
 

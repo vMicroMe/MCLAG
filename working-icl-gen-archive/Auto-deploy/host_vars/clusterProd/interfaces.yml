@@ -8,10 +8,8 @@ topo:
       key: 0
       rd_group: 1
       links:
-        - "xe-0/0/3"
-        - "xe-0/0/4"
-        - "xe-7/0/3"
-        - "xe-7/0/4"
+        - "ge-0/0/4"
+        - "ge-7/0/4"
       units:
         unit506:
           u_id: 506

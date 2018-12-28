@@ -1,5 +1,9 @@
+::::::::::::::
+leaf-ex-intf.j2
+::::::::::::::
 
 chassis {
+   {% if GRES is defined %}
     {% for node in GRES %}
      {% if node == inventory_hostname %}
     redundancy {
@@ -13,6 +17,7 @@ chassis {
             device-count {{topo.nbr_ae}};
         }
     }
+  {% endif %}
  }
 
 interfaces {
@@ -24,17 +29,17 @@ interfaces {
         ether-options {
             802.3ad ae{{topo.key}};
         }
-    } 
+    }
     {% endfor %}
 
     ae{{topo.key}} {
-   description "{{name}}"; 
+   description "{{name}}";
     aggregated-ether-options {
         lacp {
             active;
         }
     }
-        unit 0 {                        
+        unit 0 {
             family ethernet-switching {
                 port-mode trunk;
                 vlan {
@@ -57,7 +62,7 @@ interfaces {
      unit {{ vlan.id}} {
           family inet {
         address {{ vlan.ip }}/{{vlan.mask}} ;
-   
+
      }
    }
 {% endif %}
@@ -65,6 +70,7 @@ interfaces {
  }
 }
 
+{% if NSB is defined %}
   {% for node in NSB %}
      {% if node == inventory_hostname %}
    protocols {
@@ -74,8 +80,9 @@ interfaces {
  }
      {% endif %}
   {% endfor %}
+{% endif %}
 
-
+{% if NSR is defined %}
   {% for node in NSR %}
      {% if node == inventory_hostname %}
    routing-options{
@@ -85,6 +92,5 @@ interfaces {
  }
      {% endif %}
   {% endfor %}
-
-
+{% endif %}
 

@@ -14,10 +14,13 @@ interfaces {
 reth{{intf.key}} {
 
   vlan-tagging;
-     redundant-ether-options {
+    
+ redundant-ether-options {
+{% if intf.links| count > 2 %}
     lacp {
         active;
     }
+{% endif %}
         redundancy-group {{intf.rd_group}};
     }
 
